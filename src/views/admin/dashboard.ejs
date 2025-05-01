@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - MoviesFlix</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <%- include('../partials/adminHeader') %>
+  
+  <div class="container mx-auto mt-8 px-4">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-semibold text-gray-800">Películas</h1>
+      <div>
+        <a href="/admin/addMovie" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">Agregar Película</a>
+        <a href="/admin/userStats" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200">Estadísticas de Usuarios</a>
+      </div>
+    </div>
+    
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-2 px-4 text-left text-sm font-medium text-gray-600">Título</th>
+            <th class="py-2 px-4 text-left text-sm font-medium text-gray-600">Clasificación</th>
+            <th class="py-2 px-4 text-left text-sm font-medium text-gray-600">Géneros</th>
+            <th class="py-2 px-4 text-left text-sm font-medium text-gray-600">Idioma</th>
+            <th class="py-2 px-4 text-left text-sm font-medium text-gray-600">Fecha</th>
+            <th class="py-2 px-4 text-left text-sm font-medium text-gray-600">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% movies.forEach(movie => { %>
+            <tr class="border-t hover:bg-gray-50">
+              <td class="py-2 px-4 text-sm text-gray-700"><%= movie.title %></td>
+              <td class="py-2 px-4 text-sm text-gray-700"><%= movie.rating %></td>
+              <td class="py-2 px-4 text-sm text-gray-700"><%= movie.genres.join(', ') %></td>
+              <td class="py-2 px-4 text-sm text-gray-700"><%= movie.original_language || 'N/A' %></td>
+              <td class="py-2 px-4 text-sm text-gray-700"><%= movie.release_date ? new Date(movie.release_date).toLocaleDateString() : 'N/A' %></td>
+              <td class="py-2 px-4 text-sm">
+                <a href="/admin/editMovie/<%= movie._id %>" class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition duration-200">Editar</a>
+                <form action="/admin/movies/<%= movie._id %>?_method=DELETE" method="POST" class="inline">
+                  <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition duration-200" onclick="return confirm('¿Estás seguro de eliminar esta película?')">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Paginación -->
+    <div class="flex justify-center mt-6">
+      <ul class="flex space-x-4">
+        <% if (currentPage > 1) { %>
+          <li>
+            <a href="/admin?page=<%= currentPage - 1 %>" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Anterior</a>
+          </li>
+        <% } else { %>
+          <li>
+            <span class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md">Anterior</span>
+          </li>
+        <% } %>
+        
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li>
+            <a href="/admin?page=<%= i %>" class="px-4 py-2 rounded-md <%= i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600' %>">
+              <%= i %>
+            </a>
+          </li>
+        <% } %>
+        
+        <% if (currentPage < totalPages) { %>
+          <li>
+            <a href="/admin?page=<%= currentPage + 1 %>" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Siguiente</a>
+          </li>
+        <% } else { %>
+          <li>
+            <span class="bg-gray-300 text-gray-600 px-4 py-2 rounded-md">Siguiente</span>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

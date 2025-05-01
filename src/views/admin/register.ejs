@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Administrador - MoviesFlix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+      <div class="mb-6">
+        <h3 class="text-2xl font-semibold text-center text-gray-800">Registrar Nuevo Administrador</h3>
+      </div>
+
+      <!-- 🔥 Aquí mostramos el error si existe -->
+      <% if (error) { %>
+        <div class="text-red-600 bg-red-100 border border-red-400 rounded-lg p-3 mb-4">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form id="registerForm" action="/admin/register" method="POST" novalidate>
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" id="name" name="name" required value="<%= typeof formData !== 'undefined' ? formData.name : '' %>">
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" id="email" name="email" required value="<%= typeof formData !== 'undefined' ? formData.email : '' %>">
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input type="password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" id="password" name="password" required minlength="6">
+          <div class="text-sm text-gray-500 mt-1">La contraseña debe tener al menos 6 caracteres.</div>
+        </div>
+
+        <button type="submit" class="w-full py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Registrar Administrador</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a href="/admin/login" class="text-blue-600 hover:text-blue-700">¿Ya tienes cuenta? Inicia Sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Validación de contraseña antes de enviar
+    const form = document.getElementById('registerForm');
+    form.addEventListener('submit', function (e) {
+      const password = document.getElementById('password').value;
+      const name = document.getElementById('name').value;
+      if (password.length < 6) {
+        e.preventDefault();
+        alert('La contraseña debe tener al menos 6 caracteres.');
+      }
+      if (name.length < 3) {
+        e.preventDefault();
+        alert('El nombre debe tener al menos 3 caracteres.');
+      }
+    });
+  </script>
+
+</body>
+</html>

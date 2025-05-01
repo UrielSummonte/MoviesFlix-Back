@@ -1,0 +1,150 @@
+import mongoose from "mongoose";
+
+const movieSchema = new mongoose.Schema(
+  {
+    original_title: {
+      type: String,
+      required: [true, "El título original es obligatorio"],
+      trim: true,
+      minlength: [1, "El título debe tener al menos 1 caracter"],
+      maxlength: [100, "El título no puede tener mas de 100 caracteres"],
+      index: true,
+    },
+    title: {
+      type: String,
+      required: [true, "El título es obligatorio"],
+      trim: true,
+      minlength: [1, "El título debe tener al menos 1 caracter"],
+      maxlength: [100, "El título no puede tener mas de 100 caracteres"],
+      index: true,
+    },
+    original_language: {
+      type: String,
+      required: [true, "El lenguaje original es obligatorio"],
+      trim: true,
+      minlength: [1, "El lenguaje original debe tener al menos 1 caracter"],
+      maxlength: [4, "El lenguaje original no puede tener mas de 4 caracteres"],
+    },
+    overview: {
+      type: String,
+      required: [true, "La reseña es obligatoria"],
+      minlength: [10, "La reseña debe tener al menos 10 caracteres"],
+    },
+    poster_path: {
+      type: String,
+      required: [true, "El póster es obligatorio"],
+      validate: {
+        validator: (v) => {
+          return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(
+            v
+          );
+        },
+        message: (props) =>
+          `${props.value} no es una URL válida para el póster`,
+      },
+    },
+    trailerURL: {
+      type: String,
+      validate: {
+        validator: (v) => {
+          return (
+            !v || // Si no hay valor, lo permite (es opcional)
+            /^(https?:\/\/(?:www\.)?youtube\.com\/watch\?v=.+)/.test(v) // Usa 'v' en lugar de 'value'
+          );
+        },
+        message: (props) =>
+          `${props.value} no es una URL válida para el trailer`,
+      },
+    },
+    
+    tmdbId: {
+      type: Number,
+      unique: true,
+      sparse: true,
+      validate: {
+        validator: (v) => {
+          return v === undefined || v === null || v > 0;
+        },
+        message: (props) => `${props.value} no es un ID de TMDB válido`,
+      },
+    },
+    release_date: {
+      type: Date,
+      validate: {
+        validator: (v) => {
+          return !v || !isNaN(new Date(v).getTime());
+        },
+        message: (props) => `${props.value} no es una fecha válida`,
+      },
+      get: (date) => {
+        if (date) {
+          const day = date.getDate().toString().padStart(2, '0');
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const year = date.getFullYear();
+          return `${year}-${month}-${day}`;  // Solo devuelve la fecha en formato YYYY-MM-DD
+        }
+        return date;
+      },
+      set: (dateString) => {
+        if (dateString) {
+          const parts = dateString.split('-');
+          if (parts.length === 3) {
+            const [year, month, day] = parts;
+            return new Date(`${year}-${month}-${day}T00:00:00.000Z`);  // Establece la hora como 00:00:00.000Z
+          }
+        }
+        return dateString;
+      },
+    },
+    genres: {
+      type: [String],
+      required: [true, "Al menos un género es obligatorio"],
+      validate: {
+        validator: (v) =>
+          Array.isArray(v) &&
+          v.length > 0 &&
+          v.every(
+            (genre) => typeof genre === "string" && genre.trim().length > 0
+          ),
+        message: (prosps) =>
+          `Los géneros deben ser un array no vacio de strings`,
+      },
+    },
+    rating: {
+      type: String,
+      enum: {
+        values: ["G", "PG", "PG-13", "R", "NC-17"],
+        message: "La clasificación debe ser G, PG, PG-13, R o NC-17",
+      },
+      required: [true, "La clasificación es obligatoria"],
+    },
+    vote_average: { type: Number, min: 0 },
+    // certification: { type: String, required: true },
+    // certificationMeaning: { type: String, default: "Sin datos" },
+    // type: {
+    //   type: String,
+    //   enum: ["adult", "teen", "child"],
+    //   required: [true, "El tipo de perfil es obligatorio"],
+    // },
+    // ageRating: {
+    //   type: Number,
+    //   default: function () {
+    //     if (this.type === "adult") return 18;
+    //     if (this.type === "teen") return 13;
+    //     return 7; // child
+    //   },
+    // },
+  },
+  {
+    timestamps: true,
+    toJSON: { getters: true }, // Habilitar getters al convertir a JSON
+    toObject: { getters: true }, // Habilitar getters al convertir a objeto
+  }
+);
+
+// Índice para búsqueda de texto
+movieSchema.index({ title: "text", original_title: "text", overview: "text" });
+
+const Movie = mongoose.model("Movie", movieSchema);
+
+export default Movie;

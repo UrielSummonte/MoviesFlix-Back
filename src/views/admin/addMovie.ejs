@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agregar Película - MoviesFlix</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <%- include('../partials/adminHeader') %>
+
+    <div class="container mx-auto p-6">
+      <h1 class="text-3xl font-semibold text-center mb-4">Agregar Película</h1>
+
+      <!-- Formulario de agregar película -->
+      <form
+        id="form"
+        action="/admin/movies"
+        method="POST"
+        class="space-y-6 max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md"
+      >
+      <% if (typeof errorMessage !== 'undefined') { %>
+        <div class="bg-red-500 text-white p-4 rounded mb-4">
+          <%= errorMessage %>
+        </div>
+      <% } %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="mb-3">
+            <label
+              for="original_title"
+              class="block text-sm font-medium text-gray-700"
+              >Título Original</label
+            >
+            <input
+              type="text"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="original_title"
+              name="original_title"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="title" class="block text-sm font-medium text-gray-700"
+              >Título</label
+            >
+            <input
+              type="text"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="title"
+              name="title"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="overview" class="block text-sm font-medium text-gray-700"
+            >Reseña</label
+          >
+          <textarea
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="overview"
+            name="overview"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="mb-3">
+            <label
+              for="poster_path"
+              class="block text-sm font-medium text-gray-700"
+              >URL del Póster</label
+            >
+            <input
+              type="url"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="poster_path"
+              name="poster_path"
+              required
+            />
+          </div>
+
+          <!-- <div class="mb-3">
+            <label for="type" class="block text-sm font-medium text-gray-700"
+              >Tipo de Perfil</label
+            >
+            <select
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="type"
+              name="type"
+              required
+            >
+              <option value="adult">Adulto</option>
+              <option value="teen">Adolescente</option>
+              <option value="child">Niño</option>
+            </select>
+          </div> -->
+
+          <div class="mb-3">
+            <label for="rating" class="block text-sm font-medium text-gray-700"
+              >Clasificación</label
+            >
+            <select
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="rating"
+              name="rating"
+              required
+            >
+              <option value="G">G</option>
+              <option value="PG">PG</option>
+              <option value="PG-13">PG-13</option>
+              <option value="R">R</option>
+              <option value="NC-17">NC-17</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Géneros</label
+          >
+          <div
+            id="genresGroup"
+            class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-4xl mx-auto"
+          >
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Action"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Acción</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Adventure"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Adventure</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Animation"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Animation</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Comedy"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Comedy</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Crime"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Crime</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Documentary"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Documentary</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Drama"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Drama</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Family"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Family</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Fantasy"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Fantasy</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="History"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>History</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Horror"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Horror</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Music"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Music</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Mystery"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Mystery</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Romance"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Romance</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Science Fiction"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Science Fiction</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Tv Movie"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Tv Movie</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Thriller"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Thriller</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="War"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>War</span>
+              </label>
+            </div>
+            <div>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value="Western"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <span>Western</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center space-x-4">
+          <a
+            href="/admin"
+            class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-200"
+            >Cancelar</a
+          >
+          <button
+            type="submit"
+            class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none"
+          >
+            Guardar Película
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Vincular el archivo JavaScript -->
+    <script src="/js/script.js"></script>
+  </body>
+</html>
