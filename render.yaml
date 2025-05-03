@@ -5,3 +5,12 @@ services:
     buildCommand: npm install
     startCommand: npm start
     nodeVersion: 18.16.0
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        required: true
+      - key: FRONTEND_URL
+        required: true
+      - key: JWT_SECRET
+        required: true
