@@ -126,9 +126,9 @@ const [
   watchlistRoutes
 ] = await Promise.all([
   importModule('./routes/AuthRoutes.mjs'),
-  importModule('./routes/userRoutes.mjs'),
+  importModule('./routes/UserRoutes.mjs'),
   importModule('./routes/ProfileRoutes.mjs'),
-  importModule('./routes/movieRoutes.mjs'),
+  importModule('./routes/MovieRoutes.mjs'),
   importModule('./routes/AdminRoutes.mjs'),
   importModule('./routes/WatchlistRoutes.mjs')
 ]);
