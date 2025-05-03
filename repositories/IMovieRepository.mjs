@@ -17,21 +17,6 @@ class IMovieRepository {
   getMovies() {
     throw new Error("Método 'getMovies()' no implementado");
   }
-  findMoviesByText() {
-    throw new Error(
-      "Método 'findMoviesByText()' no implementado"
-    );
-  }
-  getMoviesByGenre() {
-    throw new Error(
-      "Método 'getMoviesByGenre()' no implementado"
-    );
-  }  
-  findMoviesForAge() {
-    throw new Error(
-      "Método 'findMoviesForAge()' no implementado"
-    );
-  }  
 }
 
 export default IMovieRepository;

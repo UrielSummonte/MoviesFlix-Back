@@ -2,6 +2,8 @@ import User from "../models/User.mjs";
 import IUserRepository from "./IUserRepository.mjs";
 
 class UserRepository extends IUserRepository {
+
+  // Repositorio para crear un usuario
   async createUser(userData) {
     try {
       return await User.create(userData);
@@ -11,6 +13,7 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para encontrar un usuario por id
   async findUserById(userId) {
     try {
       return await User.findById(userId).select("-password");
@@ -20,6 +23,7 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para encontrar un usuario por mail
   async findUserByEmail(email) {
     try {
       return await User.findOne({ email })
@@ -29,9 +33,9 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para eliminar un usuario por id
   async removeUserById(id) {
     try {
-      // Usamos findByIdAndDelete para obtener el documento actualizado
       return await User.findByIdAndDelete({ _id: id });
     } catch (error) {
       console.error("Error al eliminar el useuario por id:", error);
@@ -39,6 +43,7 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para actualizar un usuario por id
   async updateUserById(id, userData) {
     try {
       return await User.findByIdAndUpdate(
@@ -52,6 +57,7 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para obtener todos los usuarios
   async getAllUsers() {
     try {
       return await User.find({}).select("-password")
@@ -61,6 +67,7 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para contar todos los usuarios
   async countUsers() {
     try {
       return await User.countDocuments()
@@ -70,6 +77,7 @@ class UserRepository extends IUserRepository {
     }
   }
 
+  // Repositorio para contar todos los uuarios por rol
   async countUsersByRol(role) {
     try {
       return await User.countDocuments({ role })

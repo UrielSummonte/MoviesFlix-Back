@@ -1,5 +1,7 @@
 import { getUserProfiles, getProfile ,updateProfile, deleteProfile, createProfile } from "../services/profileService.mjs"
 
+
+// Controlador para obtener todos los profiles
 export async function getProfilesController(req, res, next) {
   try {
     const userId = req.user.id
@@ -15,6 +17,7 @@ export async function getProfilesController(req, res, next) {
   }
 }
 
+// Controlador para crear un perfil
 export async function createProfileController(req, res, next) {
   try {
     const profile = await createProfile(req.user.id, req.body);
@@ -24,6 +27,7 @@ export async function createProfileController(req, res, next) {
   }
 }
 
+// Controlador para obtener un profile por id
 export async function getProfileByIdController(req, res, next) {
   try {
     const profileId = req.params.id
@@ -40,6 +44,7 @@ export async function getProfileByIdController(req, res, next) {
   }
 }
 
+// Controlado para actulizar un profile
 export const updateProfileController = async (req, res, next) => {
   try {
     const userId = req.user.id
@@ -52,6 +57,8 @@ export const updateProfileController = async (req, res, next) => {
   }
 }
 
+
+// Controlador para delete profile
 export const deleteProfileController = async (req, res, next) => {
   try {
     const profileId = req.params.id

@@ -48,8 +48,8 @@ const movieSchema = new mongoose.Schema(
       validate: {
         validator: (v) => {
           return (
-            !v || // Si no hay valor, lo permite (es opcional)
-            /^(https?:\/\/(?:www\.)?youtube\.com\/watch\?v=.+)/.test(v) // Usa 'v' en lugar de 'value'
+            !v || 
+            /^(https?:\/\/(?:www\.)?youtube\.com\/watch\?v=.+)/.test(v)
           );
         },
         message: (props) =>
@@ -77,13 +77,6 @@ const movieSchema = new mongoose.Schema(
         message: (props) => `${props.value} no es una fecha válida`,
       },
       get: (date) => {
-        // if (date) {
-        //   const day = date.getDate().toString().padStart(2, '0');
-        //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        //   const year = date.getFullYear();
-        //   return `${year}-${month}-${day}`;  // Solo devuelve la fecha en formato YYYY-MM-DD
-        // }
-        // return date;
         if (date) {
           const parsedDate = new Date(date);
           if (isNaN(parsedDate)) return null;
@@ -100,7 +93,7 @@ const movieSchema = new mongoose.Schema(
           const parts = dateString.split('-');
           if (parts.length === 3) {
             const [year, month, day] = parts;
-            return new Date(`${year}-${month}-${day}T00:00:00.000Z`);  // Establece la hora como 00:00:00.000Z
+            return new Date(`${year}-${month}-${day}T00:00:00.000Z`);
           }
         }
         return dateString;
@@ -132,12 +125,12 @@ const movieSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    toJSON: { getters: true }, // Habilitar getters al convertir a JSON
-    toObject: { getters: true }, // Habilitar getters al convertir a objeto
+    toJSON: { getters: true }, 
+    toObject: { getters: true }, 
   }
 );
 
-// Índice para búsqueda de texto
+
 movieSchema.index({ title: "text", original_title: "text", overview: "text" });
 
 const Movie = mongoose.model("Movie", movieSchema);

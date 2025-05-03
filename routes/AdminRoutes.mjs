@@ -21,7 +21,7 @@ const router = express.Router()
 // Rutas de autenticación de administrador (FUERA del middleware de protección)
 router.get("/login", renderLoginForm)
 router.post("/login", adminLoginController)
-router.get("/register", renderRegisterFormController); // <-- Agrega aquí tu nueva vista de registro
+router.get("/register", renderRegisterFormController); 
 router.post("/register", register); 
 router.get("/logout", adminLogoutController)
 

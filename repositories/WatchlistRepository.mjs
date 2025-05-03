@@ -2,12 +2,8 @@ import Watchlist from "../models/Watchlist.mjs";
 import IWatchlistRepository from "./IWatchlistRepository.mjs";
 
 class WatchlistRepository extends IWatchlistRepository {
-  // async createEmptyWatchlist(profileId) {
-  //   const newWatchlist = new Watchlist({ profile: profileId, movies: [] })
-  //   await newWatchlist.save()
-  //   return await findWatchlistByProfile(profileId)
-  // }
 
+  // Repositorio para crear una watchlist vacia
   async createEmptyWatchlist(profileId) {
     try {
       const watchlist = new Watchlist({
@@ -21,6 +17,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para crear una watchlsit
   async create(data) {
     try {
       const watchlist = new Watchlist(data);
@@ -30,6 +27,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para guardar una watchlist
   async save(watchlist) {
     try {
       return await watchlist.save();
@@ -38,6 +36,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para encontrar una watchlis por profile
   async findByProfile(profileId) {
     try {
       return await Watchlist.findOne({ profile: profileId });
@@ -46,6 +45,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para movies en la wathclist
   async findWithMovies(profileId) {
     try {
       return await Watchlist.findOne({ profile: profileId }).populate("movies");
@@ -53,14 +53,8 @@ class WatchlistRepository extends IWatchlistRepository {
       throw new Error("Error al obtener la watchlist con películas");
     }
   }
-
-
-
-
-
-
-  
-
+ 
+  // Repositorio para agregar movie a la watchlist
   async addMovieToWatchlist(profileId, movieId) {
     try {
       return await Watchlist.findOneAndUpdate(
@@ -74,6 +68,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para eliminar movie de la watchlist
   async removeMovieFromWatchlist(profileId, filmId) {
     try {
       return await Watchlist.findOneAndUpdate(
@@ -87,6 +82,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para encontrar una watchlist por profile
   async findWatchlistByProfile(profileId) {
     try {
       return await Watchlist.findOne({ profile: profileId }).populate("movies");
@@ -96,6 +92,7 @@ class WatchlistRepository extends IWatchlistRepository {
     }
   }
 
+  // Repositorio para eliminar una watchlist por profile
   async removeWatchlistByProfile(profileId) {
     try {
       return await Watchlist.findOneAndDelete({ profile: profileId });

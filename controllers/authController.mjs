@@ -5,7 +5,6 @@ import { validateRegistration, validateLogin } from "../validators/authValidator
 // Registrar un nuevo usuario
 export const register = async (req, res, next) => {
   try {
-    // Validar cuerpo de la solicitud
     const { error } = validateRegistration(req.body)
     if (error) {
       return res.status(400).json({ message: error.details[0].message })
@@ -13,13 +12,11 @@ export const register = async (req, res, next) => {
 
     const { email, password, name } = req.body
 
-    // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ email })
     if (existingUser) {
       return res.status(400).json({ message: "Ya existe un usuario con este email" })
     }
 
-    // Crear nuevo usuario
     const user = new User({
       email,
       password,
@@ -51,7 +48,6 @@ export const register = async (req, res, next) => {
 // Login de usuario
 export const login = async (req, res, next) => {
   try {
-    // Validar cuerpo de la solicitud
     const { error } = validateLogin(req.body)
     if (error) {
       return res.status(400).json({ message: error.details[0].message })
@@ -59,13 +55,11 @@ export const login = async (req, res, next) => {
 
     const { email, password } = req.body
 
-    // Buscar usuario por email
     const user = await User.findOne({ email })
     if (!user) {
       return res.status(401).json({ message: "Email o contraseña inválidos" })
     }
 
-    // Verificar contraseña
     const isPasswordValid = await user.comparePassword(password)
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Email o contraseña inválidos" })

@@ -36,12 +36,6 @@ const UserSchema = new mongoose.Schema(
       },
       default: "user",
     },
-    // profiles: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Profile",
-    //   },
-    // ],
     active: {
       type: Boolean,
       default: true,

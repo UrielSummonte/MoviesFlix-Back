@@ -1,38 +1,32 @@
 class IUserRepository {
     createUser() {
-      throw new Error("Método 'createUserRepository()' no implementado");
+      throw new Error("Método 'createUser()' no implementado");
     }
     findUserById() {
-      throw new Error("Método 'findUserByIdRepository()' no implementado");
+      throw new Error("Método 'findUserById()' no implementado");
     }
     findUserByEmail() {
-      throw new Error("Método 'findUserByEmailRepository()' no implementado");
+      throw new Error("Método 'findUserByEmail()' no implementado");
     }
     removeUserById() {
       throw new Error("Método 'removeUserById()' no implementado");
     }
     updateUserById() {
-      throw new Error("Método 'updateUserByIdRepository()' no implementado");
+      throw new Error("Método 'updateUserById()' no implementado");
     }
-    // addProfileUser() {
-    //   throw new Error("Método 'addProfileUserRepository()' no implementado");
-    // }
-    // removeProfileUser() {
-    //   throw new Error("Método 'removeProfileUserRepository()' no implementado");
-    // }
     getAllUsers() {
       throw new Error(
-        "Método 'GetAllUsersRepository()' no implementado"
+        "Método 'getAllUsers()' no implementado"
       );
     }
     countUsers() {
       throw new Error(
-        "Método 'CountUsersRepository()' no implementado"
+        "Método 'countUsers()' no implementado"
       );
     }  
     countUsersByRol() {
         throw new Error(
-          "Método 'findMoviesByTextRepository()' no implementado"
+          "Método 'countUsersByRol()' no implementado"
         );
       }  
   }

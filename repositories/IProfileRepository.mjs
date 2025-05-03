@@ -11,8 +11,11 @@ class IProfileRepository {
     updateProfileById() {
       throw new Error("Método 'updateProfileById()' no implementado");
     }
-    removeProfile() {
-      throw new Error("Método 'removeProfile()' no implementado");
+    deleteProfileById() {
+      throw new Error("Método 'deleteProfileById()' no implementado");
+    }
+    belongsToUser() {
+      throw new Error("Método 'belongsToUser()' no implementado");
     }
     countProfilesByUser() {
       throw new Error("Método 'countProfilesByUser()' no implementado");

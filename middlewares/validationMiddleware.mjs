@@ -45,7 +45,6 @@ export const createProfileValidation = [
     .isLength({ min: 2, max: 30 })
     .withMessage("El nombre debe tener entre 2 y 30 caracteres"),
   body("type").isIn(["adult", "teen", "child"]).withMessage("El tipo de perfil debe ser adult, teen o child"),
-  // body("avatar").optional().isURL().withMessage("La URL del avatar no es válida"),
   body("avatar").optional().custom((value) => {
     const isValidUrl = /^(https?:\/\/)/.test(value);
     const isLocalPath = /\.(png|jpe?g|gif|svg)$/.test(value);
@@ -80,13 +79,6 @@ export const updateProfileValidation = [
   validateRequest,
 ]
 
-// // Validaciones para operaciones de watchlist
-// export const watchlistValidation = [
-//   param("id").isMongoId().withMessage("ID de perfil no válido"),
-//   body("movieId").isMongoId().withMessage("ID de película no válido"),
-//   validateRequest,
-// ]
-
 // Validaciones para obtener películas
 export const getMoviesValidation = [
   query("page").optional().isInt({ min: 1 }).withMessage("La página debe ser un número entero positivo"),
@@ -98,17 +90,6 @@ export const getMoviesValidation = [
     .withMessage("El tipo de perfil debe ser adult, teen o child"),
   validateRequest,
 ]
-
-// // Validaciones para búsqueda de películas
-// export const searchMoviesValidation = [
-//   query("query")
-//     .notEmpty()
-//     .withMessage("El término de búsqueda es obligatorio")
-//     .trim()
-//     .isLength({ min: 2 })
-//     .withMessage("El término de búsqueda debe tener al menos 2 caracteres"),
-//   validateRequest,
-// ]
 
 // Validaciones para creación de película
 export const createMovieValidation = [

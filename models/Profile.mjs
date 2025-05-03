@@ -58,19 +58,6 @@ profileSchema.methods.updateLastActive = function () {
   return this.save();
 };
 
-// Validación personalizada para limitar el número de perfiles por usuario
-// profileSchema.pre("save", async function (next) {
-//   if (this.isNew) {
-//     const count = await this.constructor.countDocuments({ user: this.user });
-//     if (count >= 3) {
-//       const error = new Error("No puedes crear más de 3 perfiles");
-//       error.statusCode = 400;
-//       return next(error);
-//     }
-//   }
-//   next();
-// });
-
 const Profile = mongoose.model("Profile", profileSchema);
 
 export default Profile;

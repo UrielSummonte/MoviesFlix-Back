@@ -1,5 +1,4 @@
 import MovieRepository from "../repositories/MovieRepository.mjs";
-//import ProfileRepository from '../repositories/ProfileRepository.mjs'
 import { createError } from '../utils/errorUtil.mjs'
 
 export async function getMovies(page = 1, limit = 10, filters = {}) {
@@ -68,26 +67,6 @@ export async function findMoviesByText(query) {
         throw error;
     }
 }
-
-// export async function getMoviesByGenre(genre, profileType) {
-//     try {
-//         let ratings = []
-//         if (profileType === "child") {
-//             ratings = ["G", "PG"]
-//         } else if (profileType === "teen") {
-//             ratings = ["G", "PG", "PG-13"]
-//         } else {
-//             ratings = ["G", "PG", "PG-13", "R", "NC-17"]
-//         }
-
-//         const moviesByGenre = await MovieRepository.getMoviesByGenre(genre)
-
-//         return moviesByGenre.filter((movie) => ratings.includes(movie.rating));
-//     } catch (error) {
-//         console.error("Error al buscar películas por texto en el servicio:", error);
-//         throw error;
-//     }
-// }
 
     export async function createMovie(movieData) {
         try {

@@ -3,6 +3,7 @@ import IMovieRepository from "./IMovieRepository.mjs";
 
 class MovieRepository extends IMovieRepository {
 
+    // Repositorio para crear una movie
     async createMovie(movieData) {
         try {
           return await Movie.create(movieData);
@@ -12,6 +13,7 @@ class MovieRepository extends IMovieRepository {
         }
       }
 
+  // Repositorio para find una movie por id
   async findMovieById(id) {
     try {
       return await Movie.findById(id);
@@ -21,6 +23,7 @@ class MovieRepository extends IMovieRepository {
     }
   }
 
+  // Repositorio para find un TMDBId movie
   async findMovieTMDBById(TMDBId) {
     try {
       return await Movie.findOne({ tmdbId: TMDBId });
@@ -30,6 +33,7 @@ class MovieRepository extends IMovieRepository {
     }
   }
 
+  // Repositorio para editar una movie
   async updateMovieById(id, movieData) {
     try {
       return await Movie.findByIdAndUpdate(
@@ -43,6 +47,7 @@ class MovieRepository extends IMovieRepository {
     }
   }
 
+  // Repositorio para eliminar una movie
   async deleteMovieById(id) {
     try {
       return await Movie.findByIdAndDelete({ _id: id });
@@ -52,6 +57,7 @@ class MovieRepository extends IMovieRepository {
     }
   }
 
+  // Repositorio para traer movies con paginado y filtros
   async getMovies(filter = {}, page = 1, limit = 10, sort = { createdAt: -1 }) {
     try {
         const skip = (page - 1) * limit;
@@ -69,25 +75,6 @@ class MovieRepository extends IMovieRepository {
         throw error;
     }
 }
-
-  async findMoviesByText(query) {
-    try {
-        return await Movie.find( { $text: { $search: query } }).limit(10);
-      } catch (error) {
-        console.error("Error al buscar movies por texto:", error);
-        throw error;
-      }
-  }
-
-  async getMoviesByGenre(genre, limit = 10) {
-    try {
-        return await Movie.find( { genres: { $in: [genre] } } ).limit(limit);
-      } catch (error) {
-        console.error("Error al buscar movies por genero:", error);
-        throw error;
-      }
-  }
-
 
 }
 

@@ -3,6 +3,7 @@ import {
   findMovieById,
 } from "../services/movieService.mjs";
 
+// Traer todas las movies con paginado y filtros
 export async function getAllMoviesController(req, res) {
   try {
     const page =
@@ -43,6 +44,7 @@ export async function getAllMoviesController(req, res) {
   }
 }
 
+// Traer movie por id
 export async function getMovieByIdController(req, res) {
   try {
     const movieId = req.params.id;
