@@ -19,6 +19,8 @@
 //     process.exit(1); // Salir del proceso si hay error
 //   }
 // };
+
+
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
