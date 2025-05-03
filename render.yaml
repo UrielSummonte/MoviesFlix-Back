@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: moviesflix-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    nodeVersion: 18.16.0

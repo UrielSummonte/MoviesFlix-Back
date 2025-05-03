@@ -13,7 +13,6 @@ import profileRoutes from "./src/routes/ProfileRoutes.mjs"
 import movieRoutes from "./src/routes/movieRoutes.mjs"
 import adminRoutes from "./src/routes/AdminRoutes.mjs"
 import watchlistRoutes from "./src/routes/WatchlistRoutes.mjs"
-// import { errorHandler, notFound } from "./middlewares/errorMiddleware.mjs"
 import path from 'path'; // Importa el módulo 'path'
 import { connectDB } from './src/config/dbConfig.mjs';
 
@@ -22,6 +21,7 @@ dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
+const HOST = '0.0.0.0'; // Importante para Render
 
 // Configuración de seguridad
 app.use(helmet({
@@ -73,8 +73,13 @@ app.get("/", (req, res) => {
 })
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
+    app.listen(PORT, HOST, () => {
+      console.log(`🚀 Servidor ejecutándose en http://${HOST}:${PORT}`);
+      
+      // Solo muestra en desarrollo
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`➜ Local: http://localhost:${PORT}`);
+      }
     });
   });
 
