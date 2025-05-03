@@ -107,15 +107,14 @@ dotenv.config();
 // Importaciones dinámicas seguras
 const importModule = async (modulePath) => {
   try {
-    const fullPath = join(__dirname, modulePath);
-    // Convierte la ruta a formato URL válido para Windows
-    const moduleUrl = pathToFileURL(fullPath).href;
-    const module = await import(moduleUrl);
+    // Para Windows, usa pathToFileURL
+    const fullPath = pathToFileURL(join(__dirname, modulePath)).href;
+    console.log(`Intentando importar desde: ${fullPath}`);  // Debug
+    const module = await import(fullPath);
     return module.default || module;
   } catch (err) {
-    console.error(`Error importing ${modulePath}:`, err);
-    // Muestra la ruta exacta que intentó cargar
-    console.log(`Ruta intentada: ${join(__dirname, modulePath)}`);
+    console.error(`Error importing ${modulePath}:`, err.message);
+    console.log(`Ruta absoluta intentada: ${join(__dirname, modulePath)}`);
     process.exit(1);
   }
 };
