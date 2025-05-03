@@ -32,13 +32,9 @@ class MovieRepository extends IMovieRepository {
 
   async updateMovieById(id, movieData) {
     try {
-      // Usamos findOneAndUpdate con { new: true } para obtener el documento actualizado
       return await Movie.findByIdAndUpdate(
-        // Filtro por id
         { _id: id }, 
-        // Datos a actualizar
         { $set: movieData }, 
-        // Devuelve el documento actualizado
         { new: true } 
       );
     } catch (error) {
@@ -49,7 +45,6 @@ class MovieRepository extends IMovieRepository {
 
   async deleteMovieById(id) {
     try {
-      // Usamos findByIdAndDelete para obtener el documento actualizado
       return await Movie.findByIdAndDelete({ _id: id });
     } catch (error) {
       console.error("Error al eliminar la movie por id:", error);
@@ -93,9 +88,6 @@ class MovieRepository extends IMovieRepository {
       }
   }
 
-  // async findMoviesForAge(maxAge) {
-  //   return await Movie.find({ ageRating: { $lte: maxAge } }).sort({ createdAt: -1 })
-  // }
 
 }
 

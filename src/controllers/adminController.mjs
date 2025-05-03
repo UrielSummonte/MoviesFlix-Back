@@ -1,4 +1,3 @@
-import Movie from "../models/Movie.mjs";
 import User from "../models/User.mjs";
 import { createError } from "../utils/errorUtil.mjs";
 import {
@@ -198,35 +197,6 @@ export async function addMovieController(req, res, next) {
     }
   }
 }
-
-// Agregar película desde TMDB
-// export const addMovieFromTMDB = async (req, res, next) => {
-//   try {
-//     const { tmdbId } = req.body;
-
-//     // Verificar si la película ya existe
-//     const existingMovie = await Movie.findOne({ tmdbId });
-//     if (existingMovie) {
-//       return next(
-//         createError(400, "La película ya existe en la base de datos")
-//       );
-//     }
-
-//     // Obtener detalles de la película desde TMDB
-//     const movieData = await fetchMovieFromTMDB(tmdbId);
-
-//     if (!movieData) {
-//       return next(createError(404, "Película no encontrada en TMDB"));
-//     }
-
-//     const newMovie = new Movie(movieData);
-//     await newMovie.save();
-
-//     res.redirect("/admin");
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 // Actualizar película
 export async function updateMovieController(req, res, next) {

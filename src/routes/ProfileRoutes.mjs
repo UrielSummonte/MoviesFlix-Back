@@ -6,6 +6,7 @@ import {
   deleteProfileController,
 } from "../controllers/profileController.mjs"
 import { verifyToken } from "../middlewares/authMiddleware.mjs"
+import { createProfileValidation, updateProfileValidation } from "../middlewares/validationMiddleware.mjs"
 
 const router = express.Router()
 
@@ -15,8 +16,8 @@ router.use(verifyToken)
 // Rutas de perfil
 router.get("/", getProfilesController)
 // router.get("/:id", )
-router.post("/", createProfileController)
-router.put("/:id", updateProfileController)
+router.post("/", createProfileValidation, createProfileController)
+router.put("/:id", updateProfileValidation, updateProfileController)
 router.delete("/:id", deleteProfileController)
 
 export default router

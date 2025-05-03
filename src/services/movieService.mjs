@@ -148,16 +148,4 @@ export async function findMoviesByText(query) {
         }
     }
 
-    // export async function getMoviesForProfile(profileId, userId) {
-    //     const profile = await ProfileRepository.findProfileById(profileId, userId)
-        
-    //     if (!profile) {
-    //       const error = new Error("Perfil no encontrado")
-    //       error.statusCode = 404
-    //       throw error
-    //     }
-      
-    //     const movies = await MovieRepository.findMoviesForAge(profile.ageRestriction)
-    //     return movies
-    //   }
-
+    

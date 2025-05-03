@@ -2,9 +2,11 @@ import Profile from "../models/Profile.mjs";
 import IProfileRepository from "./IProfileRepository.mjs";
 
 class ProfileRepository extends IProfileRepository {
-  async createProfil(profileData) {
+
+  async createProfile(profileData) {
     try {
-      return await Profile.create(profileData);
+      const profile = new Profile(profileData);
+      return await profile.save();
     } catch (error) {
       console.error("Error al crear el perfil:", error);
       throw error;
@@ -38,18 +40,16 @@ class ProfileRepository extends IProfileRepository {
     )
   }
 
-  // async removeProfile(id, userId) {
-  //   try {
-  //     return await Profile.findByIdAndDelete({ _id: id, user:userId})
-  //   } catch (error) {
-  //     console.error("Error al remover perfil del usuario:", error);
-  //     throw error;
-  //   }
-  // }
-
   async deleteProfileById(profile) {
-    await profile.deleteOne()
+    try {
+      await profile.deleteOne()
+      console.log("Perfil eliminado correctamente")
+    } catch (error) {
+      console.error("Error al eliminar el perfil:", error)
+      throw error // o podrías manejarlo de otra forma si preferís
+    }
   }
+  
 
   async belongsToUser(profileId, userId) {
     const profile = await Profile.findById(profileId)

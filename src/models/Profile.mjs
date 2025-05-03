@@ -12,17 +12,6 @@ const profileSchema = new mongoose.Schema(
     avatar: {
       type: String,
       default: "default-avatar.png",
-      // validate: {
-      //   validator: (v) => {
-      //     // Permitir la imagen por defecto o una URL válida
-      //     return (
-      //       v === "default-avatar.png" ||
-      //       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v)
-      //     );
-      //   },
-      //   message: (props) =>
-      //     `${props.value} no es una URL válida para el avatar`,
-      // },
     },
     type: {
       type: String,
@@ -70,17 +59,17 @@ profileSchema.methods.updateLastActive = function () {
 };
 
 // Validación personalizada para limitar el número de perfiles por usuario
-profileSchema.pre("save", async function (next) {
-  if (this.isNew) {
-    const count = await this.constructor.countDocuments({ user: this.user });
-    if (count >= 3) {
-      const error = new Error("No puedes crear más de 3 perfiles");
-      error.statusCode = 400;
-      return next(error);
-    }
-  }
-  next();
-});
+// profileSchema.pre("save", async function (next) {
+//   if (this.isNew) {
+//     const count = await this.constructor.countDocuments({ user: this.user });
+//     if (count >= 3) {
+//       const error = new Error("No puedes crear más de 3 perfiles");
+//       error.statusCode = 400;
+//       return next(error);
+//     }
+//   }
+//   next();
+// });
 
 const Profile = mongoose.model("Profile", profileSchema);
 

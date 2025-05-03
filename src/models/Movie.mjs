@@ -77,13 +77,23 @@ const movieSchema = new mongoose.Schema(
         message: (props) => `${props.value} no es una fecha válida`,
       },
       get: (date) => {
+        // if (date) {
+        //   const day = date.getDate().toString().padStart(2, '0');
+        //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        //   const year = date.getFullYear();
+        //   return `${year}-${month}-${day}`;  // Solo devuelve la fecha en formato YYYY-MM-DD
+        // }
+        // return date;
         if (date) {
-          const day = date.getDate().toString().padStart(2, '0');
-          const month = (date.getMonth() + 1).toString().padStart(2, '0');
-          const year = date.getFullYear();
-          return `${year}-${month}-${day}`;  // Solo devuelve la fecha en formato YYYY-MM-DD
+          const parsedDate = new Date(date);
+          if (isNaN(parsedDate)) return null;
+      
+          const day = parsedDate.getDate().toString().padStart(2, '0');
+          const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+          const year = parsedDate.getFullYear();
+          return `${year}-${month}-${day}`;
         }
-        return date;
+        return null;
       },
       set: (dateString) => {
         if (dateString) {
@@ -119,21 +129,6 @@ const movieSchema = new mongoose.Schema(
       required: [true, "La clasificación es obligatoria"],
     },
     vote_average: { type: Number, min: 0 },
-    // certification: { type: String, required: true },
-    // certificationMeaning: { type: String, default: "Sin datos" },
-    // type: {
-    //   type: String,
-    //   enum: ["adult", "teen", "child"],
-    //   required: [true, "El tipo de perfil es obligatorio"],
-    // },
-    // ageRating: {
-    //   type: Number,
-    //   default: function () {
-    //     if (this.type === "adult") return 18;
-    //     if (this.type === "teen") return 13;
-    //     return 7; // child
-    //   },
-    // },
   },
   {
     timestamps: true,

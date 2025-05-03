@@ -15,7 +15,6 @@ import {
 } from "../controllers/adminController.mjs"
 import { verifyToken, verifyAdmin } from "../middlewares/authMiddleware.mjs"
 import { createMovieValidation, updateMovieValidation } from "../middlewares/validationMiddleware.mjs"
-import { get } from "mongoose"
 
 const router = express.Router()
 
