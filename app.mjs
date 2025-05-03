@@ -7,15 +7,15 @@ import methodOverride from "method-override"
 import helmet from "helmet"
 import rateLimit from "express-rate-limit"
 import cookieParser from "cookie-parser"
-import authRoutes from "./routes/authRoutes.mjs"
-import userRoutes from "./routes/userRoutes.mjs"
-import profileRoutes from "./routes/ProfileRoutes.mjs"
-import movieRoutes from "./routes/movieRoutes.mjs"
-import adminRoutes from "./routes/AdminRoutes.mjs"
-import watchlistRoutes from "./routes/WatchlistRoutes.mjs"
+import authRoutes from "./src/routes/authRoutes.mjs"
+import userRoutes from "./src//routes/userRoutes.mjs"
+import profileRoutes from "./src/routes/ProfileRoutes.mjs"
+import movieRoutes from "./src/routes/movieRoutes.mjs"
+import adminRoutes from "./src/routes/AdminRoutes.mjs"
+import watchlistRoutes from "./src/routes/WatchlistRoutes.mjs"
 // import { errorHandler, notFound } from "./middlewares/errorMiddleware.mjs"
 import path from 'path'; // Importa el módulo 'path'
-import { connectDB } from './config/dbConfig.mjs';
+import { connectDB } from './src/config/dbConfig.mjs';
 
 // Configuración de variables de entorno
 dotenv.config()
@@ -55,7 +55,7 @@ app.use(methodOverride("_method"))
 app.set("view engine", "ejs")
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-app.set("views", path.join(__dirname, 'views'));
+app.set("views", path.join(__dirname, 'src', 'views'));
 app.use(express.static('src/public'));
 
 

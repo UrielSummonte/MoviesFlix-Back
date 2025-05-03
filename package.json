@@ -2,12 +2,12 @@
   "name": "moviesflixback",
   "version": "1.0.0",
   "description": "Backend para la aplicación MoviesFlix",
-  "main": "src/app.mjs",
+  "main": "app.mjs",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.mjs",
-    "dev": "nodemon src/app.mjs"
+    "start": "node app.mjs",
+    "dev": "nodemon app.mjs"
   },
   "keywords": [],
   "author": "",
