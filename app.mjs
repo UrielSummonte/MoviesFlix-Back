@@ -42,13 +42,14 @@ app.use(limiter)
 
 //app.use(cors());  // Permite todos los orígenes
 
-
 const allowedOrigins = [
   'https://moviesflix-front.onrender.com',
-  'http://localhost:5173'
+  'https://moviesflix-back.onrender.com/',
+  'http://localhost:5173',
+  'http://localhost:5000'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -60,7 +61,10 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   optionsSuccessStatus: 200
-}));
+};
+
+// Aplica CORS solo a rutas de API
+app.use('/api', cors(corsOptions));
 
 app.use(express.json({ limit: "10kb" })) 
 app.use(express.urlencoded({ extended: true, limit: "10kb" }))
