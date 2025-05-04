@@ -47,23 +47,26 @@ app.use(limiter)
 //   })
 // );
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://moviesflix-front.onrender.com'
-];
+// const allowedOrigins = [
+//   'http://localhost:5173',
+//   'https://moviesflix-front.onrender.com'
+// ];
 
-// Middleware CORS solo para rutas que empiezan con /api
-app.use('/api', cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.warn('❌ Origen bloqueado por CORS:', origin);
-      callback(new Error('Origen no permitido por CORS'));
-    }
-  },
-  credentials: true,
-}));
+// // Middleware CORS solo para rutas que empiezan con /api
+// app.use('/api', cors({
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       console.warn('❌ Origen bloqueado por CORS:', origin);
+//       callback(new Error('Origen no permitido por CORS'));
+//     }
+//   },
+//   credentials: true,
+// }));
+
+app.use(cors());  // Permite todos los orígenes
+
 
 
 
