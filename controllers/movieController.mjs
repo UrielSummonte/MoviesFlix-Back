@@ -2,6 +2,7 @@ import {
   getMovies,
   findMovieById,
 } from "../services/movieService.mjs";
+import { getUserStats } from "../services/adminService.mjs";
 
 // Traer todas las movies con paginado y filtros
 export async function getAllMoviesController(req, res) {
@@ -63,3 +64,19 @@ export async function getMovieByIdController(req, res) {
       .json({ message: "Error al obtener la película", error: error.message });
   }
 }
+
+// Controlador de estadísticas
+export async function getUserStatsController(req, res, next) {
+  try {
+    const stats = await getUserStats();
+
+    res.json({
+      success: true,
+      data: stats,
+      user: req.user, // Si quieres incluir al usuario autenticado
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
