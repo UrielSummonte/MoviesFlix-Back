@@ -22,7 +22,7 @@ export async function createProfile(userId, profileData) {
     }
 
     const profileCount = await ProfileRepository.countProfilesByUser(userId);
-    if (profileCount >= 3) {
+    if (profileCount >= 4) {
       const err = new Error("Has alcanzado el número máximo de perfiles");
       err.status = 400;
       throw err;
